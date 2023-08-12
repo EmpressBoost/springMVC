@@ -1,0 +1,34 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+<!--  默认配置方式指的是位置默认，名称默认-->
+<!--  SpringMVC的配置文件默认位于WEB-INF下，默认名称为\<servlet-name>-servlet.xml，例如，以下配置所对应SpringMVC的配置文件位于WEB-INF下，文件名为springMVC-servlet.xml-->
+<!--  配置springMVC的前端控制器，对浏览器发送的请求统一处理-->
+  <servlet>
+<!--    serverlet name 和servlet mapping保持一致-->
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+<!--    配置SpringMVC配置文件的位置和名称-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springMVC.xml</param-value>
+    </init-param>
+<!--      servlet生命周期得知servlet的初始化时机是第一次访问的时候，而前端控制器封装了所有的请求的处理，
+初始化的时候需要很多内容，如果放到第一次访问的时候初始化严重影响访问的速度，所以我们将初始化提前，
+此配置就是初始化在容器启动的时候进行初始化-->
+<!--      将springMVC的前端控制器DispatcherServlet初始化时间提前到服务器启动时-->
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <!--
+        设置springMVC的核心控制器所能处理的请求的请求路径
+        /所匹配的请求可以是/login或.html或.js或.css方式的请求路径
+        但是/不能匹配.jsp请求路径的请求
+    -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+<!--  <display-name>Archetype Created Web Application</display-name>-->
+</web-app>
